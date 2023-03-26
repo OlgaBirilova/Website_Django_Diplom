@@ -18,4 +18,4 @@ class SignUpView(TemplateView):
             new_user.save()
             # Cart.objects.create(user=new_user)
             return redirect('catalog-index')
-        return render(request, self.template_name, {'user_form': user_form})    
+        return render(request, self.template_name, {'user_form': user_form})

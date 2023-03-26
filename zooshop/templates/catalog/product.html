@@ -5,12 +5,12 @@
         <div class="card">
             
             <div class="card-header">
-                <p><img src="{{ product.image.url }}" width="40%" height="400px"></p>
+                <p><img src="{{ product.image.url }}" width="35%" height="400px"></p>
                 <h4 class="card-title">{{product.title}}</h4>
                 <h3><p><span class="badge bg-pill bg-info">{{product.price}}$</span></p></h3>
                 <p>
                     <a type="button" class="btn btn-sm btn-outline-secondary"
-                      href="{{ product.animals.get_animals_url }}">{{product.animals}}: {{product.category}}</a>
+                      href="#">{{product.animals}}: {{product.category}}</a>
                 </p>
                 <h6 class="card-title">Description:</h6>
                 <p class="card-text">{{product.description}}</p>

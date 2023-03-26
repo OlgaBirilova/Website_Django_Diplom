@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from .models import Animal, Сategory, Product
-# from cart.cart import get_cart
+from cart.cart import get_cart
 
 
 class IndexView(TemplateView):
@@ -54,16 +54,15 @@ class AnimalCategoryView(TemplateView):
         params = {'animal':animal, 'category':category, 'product': product}
         return render(request, self.template_name, params)
          
-# class SearchView(TemplateView):
-#     template_name = 'catalog/index.html'
+class SearchView(TemplateView):
+    template_name = 'catalog/index.html'
     
-#     def post(self, request):
-#         content = request.POST['content']
-        
-#         #books_by_author = Book.objects.filter(author=content)
-#         books_by_title = Book.objects.filter(title__icontains=content)
-#         books_by_summary = Book.objects.filter(summary__icontains=content)
-#         #books_by_author= Book.objects.filter(author=search_author)
-#         result = books_by_title.union(books_by_summary, all=False)
-#         params = get_cart(request, {'books': result})
-#         return render(request, self.template_name, params)
+    def post(self, request):
+        content = request.POST['content']
+        products_by_title = Product.objects.filter(title__icontains=content)
+        products_by_description = Product.objects.filter(description__icontains=content)
+        result = products_by_title.union(products_by_description, all=False)
+        params = {
+            'products': result
+        }
+        return render(request, self.template_name, params)
