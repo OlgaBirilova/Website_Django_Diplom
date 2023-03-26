@@ -8,10 +8,12 @@ class IndexView(TemplateView):
     template_name = 'catalog/index.html'
     
     def get(self, request):
-        product = Product.objects.all()
-        numb = product.count()
-        # params = get_cart(request, {'product': product, 'numb': numb})
-        return render(request, self.template_name, {'product': product, 'numb': numb})
+        products = Product.objects.all()
+        category = Сategory.objects.all().count()
+        animals = Animal.objects.all().count()
+        numb = products.count()
+        params = {'products': products, 'numb': numb, 'category': category, 'animals': animals}
+        return render(request, self.template_name, params)
 
 
 # class AuthorsView(TemplateView):

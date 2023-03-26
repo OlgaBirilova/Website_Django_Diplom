@@ -35,7 +35,7 @@ class Product(models.Model):
     category = models.ForeignKey(Сategory, on_delete=models.PROTECT)
     ageanimal = models.ManyToManyField(Age)
     description = models.TextField(max_length=500, help_text='Enter a description of the product')
-    ingredients = models.TextField(max_length=500, help_text='Enter the composition of the product')
+    ingredients = models.TextField(max_length=500, help_text='Enter the composition of the product', blank=True, null=True)
     price = models.FloatField()
     amount = models.IntegerField(default=0)
     #image = models.ImageField(upload_to="books/", blank=True, default="book-placeholder.jpeg")
