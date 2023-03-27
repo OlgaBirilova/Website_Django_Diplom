@@ -13,10 +13,10 @@
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <a class="navbar-brand navbar-dark" href="{% url 'catalog-index' %}">ZooОстров</a>
-          <li><a href="{{ animals.get_animal_url }}" class="nav-link px-2 text-white">Cats</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Dogs</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Rodents</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Fish</a></li>
+          <li><a href="{% url 'catalog-cats' %}" class="nav-link px-2 text-white">Cats</a></li>
+          <li><a href="{% url 'catalog-dogs' %}" class="nav-link px-2 text-white">Dogs</a></li>
+          <li><a href="{% url 'catalog-rodents' %}" class="nav-link px-2 text-white">Rodents</a></li>
+          <li><a href="{% url 'catalog-fish' %}" class="nav-link px-2 text-white">Fish</a></li>
         </ul>
         <form class="d-flex px-2" action="{% url 'catalog-search' %}" method="post">
           {% csrf_token %}
@@ -28,6 +28,46 @@
           </button>
         </form>
 
+        {% if user.is_authenticated %}
+              <div hidden >
+                <div data-name="popover-content">
+                  <table class="table table-hover">
+                    <tbody>
+                      {% for book in cart.products.all %}
+                      <tr>
+                        <td style="vertical-align:middle">{{ book.title }}</td>
+                        <td style="vertical-align:middle">{{ book.price }}$</td>
+                        <td style="vertical-align:middle"><img src="{{ book.image.url }}" width="40px" height="40px"></td>
+                        <td style="vertical-align:middle">
+                          <a type="button" href="{{ book.del_to_cart }}"
+                           class="btn btn-danger center px-1">Delete</a>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  
+                  {% if cart.products.all %}
+                    <h5><b>Total: {{ cart.get_total_price }} $</b></h5>
+                    <a type="button" class="btn btn-primary center" href="#"
+                    style="display: flex; justify-content: center;">Buy</a>
+                    <a type="button" class="btn btn-danger center" href="{% url 'cart-del_all' %}"
+                    style="display: flex; justify-content: center;">Delete all</a>
+                  {% else %}
+                    <h6>Cart is empty</h6>   
+                  {% endif %}                 
+                </div>
+             </div>
+
+              <a type="button" class="btn btn-outline-light me-2"
+                data-bs-toggle="popover"
+                data-bs-placement="bottom"
+                id="cart"
+                >Cart
+                <span class="badge bg-dark">{{ cart.get_total_quantity}}</span>
+              </a>
+            {% endif %}
+            
         <div class="text-end">
           {% if user.is_authenticated %}
           <table>
