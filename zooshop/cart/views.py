@@ -10,7 +10,7 @@ class CartAddView(TemplateView):
     
     @method_decorator(login_required)
     def get(self, request, id):
-        book = Product.objects.get(id=id)
+        product = Product.objects.get(id=id)
         cart = Cart.objects.get(user=request.user)
         cart.products.add(product)
         

@@ -47,10 +47,8 @@ class Product(models.Model):
     def get_product_url(self):
         return reverse('catalog-product', args=[self.id])
     
-    # def add_to_cart(self):
-    #     return reverse('cart-add', args=[self.id])
+    def add_to_cart(self):
+        return reverse('cart-add', args=[self.id])
     
-    # def del_to_cart(self):
-    #     return reverse('cart-del', args=[self.id])
-    
-    # display_genre.short_description = 'Genre'
+    def del_to_cart(self):
+        return reverse('cart-del', args=[self.id])
